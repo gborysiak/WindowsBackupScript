@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CONFIG>
+<GENERAL>
+	<MonthRetention>1</MonthRetention>
+	<WeekRetention>1</WeekRetention>
+	<DayRetention>7</DayRetention>
+	<MininumSpaceInGB>40</MininumSpaceInGB>
+	<BackupRootFolder>foldername</BackupRootFolder>
+  <BackupName>backupname</BackupName>
+</GENERAL>
+<FILES/>
+<DESTINATION>
+	<SyncServerName></SyncServerName>
+	<SyncFolderName></SyncFolderName>
+</DESTINATION>
+<FTP/>
+<NOTIFICATION>
+	<SmtpServerName></SmtpServerName>
+	<SmtpServerPort></SmtpServerPort>
+	<SmtpServerUsername></SmtpServerUsername>
+	<SmtpServerPassword></SmtpServerPassword>
+	<Ssl>false</Ssl>
+	<Recipient></Recipient>
+	<Sender></Sender>
+</NOTIFICATION>
+</CONFIG>
