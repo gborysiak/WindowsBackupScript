@@ -6,8 +6,10 @@
 		
 	
 .NOTES
-	Author		: Alexandre Augagneur (www.alexwinner.com)
+	Original Author		: Alexandre Augagneur (www.alexwinner.com)
 	File Name	: Backup-task.ps1
+  Modified by  : Gregory Borysiak ( gregory.borysiak.com )
+
 
 .EXAMPLE
 	.Backup-Task.ps1 –ConfigFile e:\WSB-Script\Backup-Config.xml –Compress –Sync –Notify
@@ -30,6 +32,10 @@
 	
 .PARAMETER Notify
 	Send the backup job result via Email.
+  
+#HISTORIC
+# 20150302 Corrected ftp schema
+
 #>
 
 
@@ -146,9 +152,9 @@ $XMLSchema =
         <xs:element name="FTP" minOccurs="0">
           <xs:complexType>
             <xs:sequence>
-              <xs:element type="xs:string" name="Server"/>
-              <xs:element type="xs:string" name="User"/>
-              <xs:element type="xs:string" name="Password"/>
+              <xs:element type="xs:string" name="Server" minOccurs="0"/>
+              <xs:element type="xs:string" name="User" minOccurs="0"/>
+              <xs:element type="xs:string" name="Password" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
