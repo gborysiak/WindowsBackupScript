@@ -1289,7 +1289,9 @@ if ($BackupsFiles -ne $null)
 else
 {
 	[int] $SpaceNeeded = $script:Config.CONFIG.GENERAL.MininumSpaceInGB
-	Write-log -Message ($($Messages.get_Item(13)) -f $SpaceNeeded) -Indent $script:Indent -Path $script:LogFile -Level "Warning"
+  # 150304 GRBOFR Removed Warning level
+	#Write-log -Message ($($Messages.get_Item(13)) -f $SpaceNeeded) -Indent $script:Indent -Path $script:LogFile -Level "Warning"
+  Write-log -Message ($($Messages.get_Item(13)) -f $SpaceNeeded) -Indent $script:Indent -Path $script:LogFile
 	$JobResult.Message += $Messages.get_Item(13) -f $SpaceNeeded
 }
 
