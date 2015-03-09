@@ -780,8 +780,8 @@ function Zip_Folder($ZipFilePath, $Pwd )
 	
     try
     {
-        [System.IO.Compression.ZipArchiveMode]$mode = "Create"
-        $Archive = [System.IO.Compression.ZipFile]::Open($ZipFilePath, $mode)
+      [System.IO.Compression.ZipArchiveMode]$mode = "Create"
+      $Archive = [System.IO.Compression.ZipFile]::Open($ZipFilePath, $mode)
 	    foreach($path in $InputObject) {
     		foreach($item in Resolve-Path $path) {
 			    # Push-Location so we can use Resolve-Path -Relative
@@ -796,20 +796,27 @@ function Zip_Folder($ZipFilePath, $Pwd )
             Pop-Location
 		    }
 	    }
-        $Archive.Dispose()
-		$JobResult.Compression = "SUCCESSFUL"
+      $Archive.Dispose()
+      $Archive = $null
+      Write-log -Message "Normal Zip file disposed" -Indent ($script:Indent) -Path $script:LogFile 
+      $JobResult.Compression = "SUCCESSFUL"
     }
     catch
     {  
-        $Archive.Dispose()
-        $JobResult.Compression = "ERROR"
+      $Archive.Dispose()
+      $Archive = $null
+      Write-log -Message "Error Zip file disposed" -Indent ($script:Indent) -Path $script:LogFile 
+      $JobResult.Compression = "ERROR"
 		
    		Write-Verbose "backup job failed: $($_.Exception.Message)"
-		$JobResult.Message += $($_.Exception.Message)
-		Write-log -Message $($_.Exception.Message) -Indent ($script:Indent) -Path $script:LogFile -Level "Error"
-		Generate-Report
- 
-    }
+      $JobResult.Message += $($_.Exception.Message)
+      Write-log -Message $($_.Exception.Message) -Indent ($script:Indent) -Path $script:LogFile -Level "Error"
+      Generate-Report
+     }
+     if( ! $Archive -eq $null )
+     {
+        $Archive.Dispose()
+     }
 }
 
 #---------------------------------------------------
