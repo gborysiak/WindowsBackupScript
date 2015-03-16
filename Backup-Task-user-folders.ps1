@@ -35,7 +35,8 @@
   
 #HISTORIC
 # 20150302 Corrected ftp schema
-
+# 20150316 Added ExcludeFolder in FOLDERS for exclusions
+#          Added 5 max retry for robocopy
 #>
 
 
@@ -138,6 +139,7 @@ $XMLSchema =
           <xs:complexType>
             <xs:sequence>
               <xs:element type="xs:string" name="Folder" minOccurs="0" maxOccurs="unbounded"/>
+              <xs:element type="xs:string" name="ExcludeFolder" minOccurs="0" maxOccurs="unbounded"/>              
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -699,6 +701,14 @@ function Run-Backup()
       Add-WBFileSpec -Policy $WBPolicy -FileSpec $filespec 
     }
   }
+  # (+) 150316 GRBOFR Exclude folders (start)
+  foreach( $folder in $($script:Config.CONFIG.FILES.ExcludeFolder) )
+  {
+    Write-Verbose "Exclude $folder"
+    $fileSpec = New-WBFileSpec -FileSpec $folder -Exclude
+    Add-WBFileSpec -Policy $WBPolicy -FileSpec $filespec    
+  }
+  # (+) 150316 GRBOFR Exclude folders (finish)
 
   # liste des  profiles utilisateurs
   
@@ -1018,7 +1028,10 @@ function Sync-Backup()
 
         if ( $DiffContent -or ($DestinationContent -eq $null) )
         {
-          $strCMD = "ROBOCOPY $HomeBkpDir $SyncPath /MIR /LEV:1 /NJH /NP /ZB"
+          # (+/-) 150316 GRBOFR Added 5 max retry (start)
+          #$strCMD = "ROBOCOPY $HomeBkpDir $SyncPath /MIR /LEV:1 /NJH /NP /ZB"
+          $strCMD = "ROBOCOPY $HomeBkpDir $SyncPath /MIR /LEV:1 /NJH /NP /ZB /R:5"
+          # (+/-) 150316 GRBOFR Added 5 ma retry (finish)
           $Result = Invoke-Expression -Command $strCMD
             
           # Create the robocopy log file

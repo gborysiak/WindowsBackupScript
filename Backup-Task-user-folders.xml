@@ -10,7 +10,8 @@
 </GENERAL>
 <FILES>
     <Folder>E:\</Folder>
-    <Folder>UserFolder</Folder>    
+    <Folder>UserFolder</Folder>
+    <ExcludeFolder/>
 </FILES>
 <DESTINATION>
 	<SyncServerName></SyncServerName>
