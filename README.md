@@ -22,4 +22,5 @@ Known problems
 * for some reason Windows backup could failed on remote folder hosted by Linux
 
 
-
+Command line example for scheduled task :
+%SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -NonInteractive -ExecutionPolicy unrestricted -Command E:\outils\Backup-Task-user-folders.ps1 -ConfigFile E:\outils\Backup-Task-user-folders.xml -Compress -Notify -Sync
